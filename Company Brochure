@@ -1,0 +1,66 @@
+!pip install fpdf2
+
+from fpdf import FPDF
+
+class FunBrochure(FPDF):
+  def header(self):
+    self.set_fill_color(0, 102, 204)
+    self.rect(0,0,210,30,"F")
+    self.set_font("Helvetica", "B", 16)
+    self.set_text_color(255, 255, 255)
+    self.cell(0,10, "Welcome to Peerbie", ln=1, align="C")
+
+  def footer(self):
+    self.set_y(-15)
+    self.set_font("Helvetica", "I", 10)
+    self.set_text_color(128)
+    self.cell(0,10, "Page " + str(self.page_no()), align="C")
+
+pdf= FunBrochure()
+pdf.add_page()
+
+
+pdf.set_text_color(0,102, 204)
+pdf.set_font("Helvetica", "B", 24)
+pdf.cell(0,10, 'Empowering Collaboration Everywhere', ln=True, align="C")
+
+pdf.ln(10)
+pdf.set_text_color(0)
+pdf.set_font("Helvetica", "", 12)
+pdf.multi_cell(0, 10,
+               "Peerbie is a productivity platform that enables seamless collaboration and efficient task management for teams and individuals. "
+               "Whether you're working on-site or remotely, Peerbie empowers you to achieve your goals with ease and precision.")
+
+pdf.ln(10)
+pdf.set_font("Helvetica", "B", 16)
+pdf.set_text_color(255, 102, 102)
+pdf.cell(0,10, "Our services:", ln=True)
+
+services= [
+    "Task Management", 
+    "Team Collaboration", 
+    "Progress Tracking", 
+    "Scheduling and Time Management"
+]
+
+pdf.set_text_color(0)
+pdf.set_font("Helvetica", "", 12)
+for service in services:
+  pdf.cell(0,10, f"- {service}", ln=True)
+
+
+pdf.ln(10)
+pdf.set_font("Helvetica", "B", 16)
+pdf.set_text_color(0,102, 204)
+pdf.cell(0,10, "Contact us:", ln= True)
+
+pdf.set_text_color(0)
+pdf.set_font("Helvetica", "", 12)
+pdf.multi_cell(0,10,
+               "Email: info@peerbie.com\n"
+               "Phone: +1 234 567 890\n"
+              "Website: www.peerbie.com")
+
+output_file= "company_brochure.pdf"
+pdf.output(output_file)
+print(f"it is saved as {output_file}")
